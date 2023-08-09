@@ -57,10 +57,10 @@ def Cos256(v): return Cos512(v * 2) >> 1
 
 def renderBG(screen: Surface):
     colors = eggColors if egg else bgColors
+    center = Vector2(screen.get_size()) / 2
     screen.fill(colors[0])
 
-    def circle(screen: Surface, c: int, radius: float, drawPos: Vector2):
-        center = Vector2(screen.get_size()) / 2
+    def circle(c: int, radius: float, drawPos: Vector2):
         pygame.draw.circle(screen, colors[c], center, radius, 8)
         pygame.draw.circle(screen, colors[c], drawPos + center, 32)
         pygame.draw.circle(screen, colors[c], center - drawPos, 16)
@@ -69,12 +69,12 @@ def renderBG(screen: Surface):
     radius = (Sin512(timer) >> 3) + 116
     drawPos = Vector2((radius - 4) * Sin256(timer) >> 8,
                       (radius - 4) * Cos256(timer) >> 8)
-    circle(screen, 1, radius, drawPos)
+    circle(1, radius, drawPos)
 
     radius = ((Cos512(timer) >> 3) + 148)
     drawPos = Vector2((radius - 4) * Cos256(timer) >> 8,
                       (radius - 4) * Sin256(timer) >> 8)
-    circle(screen, 2, radius, drawPos)
+    circle(2, radius, drawPos)
 
 
 def drawText(surface: Surface, text: str, color, rect) -> int:
