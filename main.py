@@ -142,10 +142,13 @@ for ach in achievements:
 checkAch()
 
 MUSIC_END = pygame.USEREVENT+1
-pygame.mixer.music.load(asset("MainMenu.ogg"))
-pygame.mixer.music.set_volume(0.1)
-pygame.mixer.music.set_endevent(MUSIC_END)
-pygame.mixer.music.play()
+if pygame.mixer.get_init():
+    pygame.mixer.music.load(asset("MainMenu.ogg"))
+    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.set_endevent(MUSIC_END)
+    pygame.mixer.music.play()
+else:
+    print("Mixer failed to init. No music for you. >:(")
 
 while running:
     for event in pygame.event.get():
@@ -158,10 +161,11 @@ while running:
     if timer % (60*10) == 0:
         checkAch()
 
-    if pygame.key.get_focused():
-        pygame.mixer.music.unpause()
-    else:
-        pygame.mixer.music.pause()
+    if pygame.mixer.get_init():
+        if pygame.key.get_focused():
+            pygame.mixer.music.unpause()
+        else:
+            pygame.mixer.music.pause()
 
     bg = Surface(Vector2(screen.get_size()) / 2)
     renderBG(bg)
