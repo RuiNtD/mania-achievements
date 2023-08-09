@@ -64,7 +64,7 @@ def renderBG(screen: Surface):
         pygame.draw.circle(screen, colors[c], center, radius, 8)
         pygame.draw.circle(screen, colors[c], drawPos + center, 32)
         pygame.draw.circle(screen, colors[c], center - drawPos, 16)
-        pygame.draw.circle(screen, colors[0], drawPos + center, 26)
+        # pygame.draw.circle(screen, colors[0], drawPos + center, 26)
 
     radius = (Sin512(timer) >> 3) + 116
     drawPos = Vector2((radius - 4) * Sin256(timer) >> 8,
@@ -75,6 +75,7 @@ def renderBG(screen: Surface):
     drawPos = Vector2((radius - 4) * Cos256(timer) >> 8,
                       (radius - 4) * Sin256(timer) >> 8)
     circle(2, radius, drawPos)
+    pygame.draw.circle(screen, colors[0], drawPos + center, 26)
 
 
 def drawText(surface: Surface, text: str, color, rect) -> int:
