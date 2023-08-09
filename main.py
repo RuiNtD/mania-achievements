@@ -42,7 +42,7 @@ def checkAch():
         for ach in achievements:
             file.seek(pos)
             byte = file.read(1)
-            ach.unlocked = True  # byte != '\x00'
+            ach.unlocked = byte != '\x00'
             if ach.unlocked:
                 eggCount += 1
             pos += 4
@@ -56,7 +56,7 @@ def Cos256(v): return Cos512(v * 2) >> 1
 
 
 def renderBG(screen: Surface):
-    colors = eggColors
+    colors = eggColors if egg else bgColors
     screen.fill(colors[0])
 
     def circle(screen: Surface, c: int, radius: float, drawPos: Vector2):
